@@ -5,27 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WiFi Voucher Kantor</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f4f7f6; margin: 0; }
-        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; text-align: center; }
-        input { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
-        button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; }
-        .voucher-box { background: #e9ecef; padding: 15px; border: 2px dashed #007bff; font-weight: bold; font-size: 1.2rem; margin-top: 10px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f2f5; margin: 0; }
+        .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); width: 320px; text-align: center; }
+        h3 { color: #333; margin-bottom: 1rem; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 14px; transition: background 0.3s; }
+        button:hover { background: #0056b3; }
+        .voucher-box { background: #eef6ff; padding: 20px; border: 2px dashed #007bff; font-weight: bold; font-size: 1.5rem; margin: 15px 0; color: #0056b3; letter-spacing: 2px; border-radius: 8px; }
+        .error { color: #dc3545; font-size: 13px; margin-top: 10px; }
+        a { display: inline-block; margin-top: 15px; text-decoration: none; color: #007bff; font-size: 14px; }
     </style>
 </head>
 <body>
     <div class="card">
         <h3>📶 WiFi Voucher</h3>
+        
         {% if voucher %}
-            <p>Halo {{ nama }}, kode Anda:</p>
+            <p style="margin-bottom: 5px;">Halo, <strong>{{ nama }}</strong></p>
+            <p style="font-size: 14px; color: #666; margin-top: 0;">Kode Voucher Anda:</p>
             <div class="voucher-box">{{ voucher }}</div>
-            <p><small>Gunakan sebelum akhir hari ini.</small></p>
-            <a href="/">Ambil lagi</a>
+            <p><small style="color: #888;">Gunakan kode ini di portal WiFi kantor.</small></p>
+            <a href="/">← Kembali</a>
         {% else %}
             <form action="/claim" method="post">
-                <input type="text" name="nama" placeholder="Nama / Divisi" required>
-                <button type="submit">Dapatkan Voucher</button>
+                <input type="text" name="nama" placeholder="Masukkan Nama / Divisi" required autocomplete="off">
+                <button type="submit">Dapatkan Voucher Sekarang</button>
             </form>
-            {% if error %}<p style="color: red;">{{ error }}</p>{% endif %}
+            {% if error %}
+                <p class="error">⚠️ {{ error }}</p>
+            {% endif %}
         {% endif %}
     </div>
 </body>
